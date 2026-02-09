@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -54,6 +55,17 @@ class _UsersListScreenState extends State<UsersListScreen> {
         elevation: 0,
         automaticallyImplyLeading: false,
         actions: [
+          IconButton(
+            icon: const Icon(Icons.language, color: Colors.white),
+            onPressed: () {
+              final currentLocale = context.locale;
+              if (currentLocale.languageCode == 'en') {
+                context.setLocale(const Locale('ar'));
+              } else {
+                context.setLocale(const Locale('en'));
+              }
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.logout, color: Colors.white),
             onPressed: () {
