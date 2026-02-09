@@ -48,9 +48,20 @@ class UserDetailsCubit extends Cubit<UserDetailsState> {
     emit(UserDetailsUpdating(user: _user!));
 
     final result = await updateUserUseCase(id, name, job);
-    result.fold(
-      (failure) => emit(UserDetailsError(message: failure)),
-      (_) => emit(UserDetailsUpdated()),
-    );
+    result.fold((failure) => emit(UserDetailsError(message: failure)), (_) {
+      // Update the user's name locally since the API is fake
+      _user = UserEntity(
+        id: _user!.id,
+        email: _user!.email,
+        firstName: name.split(' ').first,
+        lastName: name.split(' ').length > 1
+            ? name.split(' ').sublist(1).join(' ')
+            : '',
+        avatar: _user!.avatar,
+      );
+      _isEditing = false;
+      emit(UserDetailsUpdated());
+      emit(UserDetailsLoaded(user: _user!));
+    });
   }
 }

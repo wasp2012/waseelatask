@@ -149,12 +149,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         current is AuthInitial,
                     builder: (context, state) {
                       return AppTextButton(
+                        buttonHeight: 40.h,
                         buttonText: AppTexts.login,
-                        textStyle: TextStyles.font16WhiteMedium,
+                        textStyle: TextStyles.font18DarkGreyBold.copyWith(
+                          color: Colors.white,
+                        ),
                         onPressed: _onLoginPressed,
                         isLoading: state is AuthLoading,
-                        horizontalPadding: 0,
-                        verticalPadding: 16,
                       );
                     },
                   ),

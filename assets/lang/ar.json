@@ -13,6 +13,7 @@
     "test_password": "كلمة المرور: cityslicka",
     "users": "المستخدمون",
     "retry": "إعادة المحاولة",
+    "no_users": "لا يوجد مستخدمون",
     "user_details": "تفاصيل المستخدم",
     "full_name": "الاسم الكامل",
     "user_id": "رقم المستخدم",

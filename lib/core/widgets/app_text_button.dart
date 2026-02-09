@@ -6,8 +6,8 @@ import '../theming/colors.dart';
 class AppTextButton extends StatelessWidget {
   final double? borderRadius;
   final Color? backgroundColor;
-  final double horizontalPadding;
-  final double verticalPadding;
+  final double? horizontalPadding;
+  final double? verticalPadding;
   final double? buttonWidth;
   final double? buttonHeight;
   final String buttonText;
@@ -19,8 +19,8 @@ class AppTextButton extends StatelessWidget {
     super.key,
     this.borderRadius,
     this.backgroundColor,
-    required this.horizontalPadding,
-    required this.verticalPadding,
+    this.horizontalPadding,
+    this.verticalPadding,
     this.buttonHeight,
     this.buttonWidth,
     required this.buttonText,
@@ -45,8 +45,8 @@ class AppTextButton extends StatelessWidget {
         ),
         padding: WidgetStateProperty.all<EdgeInsets>(
           EdgeInsets.symmetric(
-            horizontal: horizontalPadding.w,
-            vertical: verticalPadding.h,
+            horizontal: horizontalPadding?.w ?? 0,
+            vertical: verticalPadding?.h ?? 0,
           ),
         ),
         fixedSize: WidgetStateProperty.all(

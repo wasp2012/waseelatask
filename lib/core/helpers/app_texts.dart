@@ -18,6 +18,7 @@ class AppTexts {
   // Users List Screen
   static String get users => 'users'.tr();
   static String get retry => 'retry'.tr();
+  static String get noUsers => 'no_users'.tr();
 
   // User Details Screen
   static String get userDetails => 'user_details'.tr();

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:waseelatask/core/di/dependency_injection.dart';
+import 'package:waseelatask/core/helpers/app_constants.dart';
+import 'package:waseelatask/core/helpers/local_storage.dart';
 import 'package:waseelatask/core/routing/app_router.dart';
 import 'package:waseelatask/core/routing/routes.dart';
 
@@ -11,20 +13,20 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await dotenv.load(fileName: ".env");
   await setupGetIt();
-
+  final token = await LocalStorage().readSecureData(AppConstants.tokenKey);
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
       path: 'assets/lang',
       fallbackLocale: const Locale('en'),
-      child: const MyApp(),
+      child: MyApp(token: token),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  const MyApp({super.key, required this.token});
+  final String token;
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -38,7 +40,7 @@ class MyApp extends StatelessWidget {
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,
-          initialRoute: Routes.login,
+          initialRoute: token.isNotEmpty ? Routes.usersList : Routes.login,
           onGenerateRoute: AppRouter.generateRoute,
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),

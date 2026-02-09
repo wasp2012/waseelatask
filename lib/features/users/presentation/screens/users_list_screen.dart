@@ -64,7 +64,7 @@ class _UsersListScreenState extends State<UsersListScreen> {
       ),
       body: BlocBuilder<UsersCubit, UsersState>(
         builder: (context, state) {
-          if (state is UsersLoading) {
+          if (state is UsersLoading || state is UsersInitial) {
             return const Center(child: CircularProgressIndicator());
           }
 
@@ -93,14 +93,23 @@ class _UsersListScreenState extends State<UsersListScreen> {
 
           final users = context.read<UsersCubit>().users;
           final isLoadingMore = state is UsersLoadingMore;
-          final hasMore = state is UsersLoaded ? state.hasMore : false;
+
+          if (users.isEmpty) {
+            return Center(
+              child: Text(
+                AppTexts.noUsers,
+                style: TextStyles.font14GrayRegular,
+              ),
+            );
+          }
 
           return RefreshIndicator(
             onRefresh: () async => await context.read<UsersCubit>().refresh(),
             child: ListView.builder(
               controller: _scrollController,
+              physics: const AlwaysScrollableScrollPhysics(),
               padding: EdgeInsets.symmetric(vertical: 8.h),
-              itemCount: users.length + (isLoadingMore || hasMore ? 1 : 0),
+              itemCount: users.length + (isLoadingMore ? 1 : 0),
               itemBuilder: (context, index) {
                 if (index >= users.length) {
                   return Center(

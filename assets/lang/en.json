@@ -13,6 +13,7 @@
   "test_password": "Password: cityslicka",
   "users": "Users",
   "retry": "Retry",
+  "no_users": "No users found",
   "user_details": "User Details",
   "full_name": "Full Name",
   "user_id": "User ID",

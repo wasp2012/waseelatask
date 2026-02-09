@@ -98,8 +98,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
             return const Center(child: CircularProgressIndicator());
           }
 
-          if (state is UserDetailsError &&
-              userDetailsCubit.user == null) {
+          if (state is UserDetailsError && userDetailsCubit.user == null) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -162,10 +161,12 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                   verticalSpace(32),
                   AppTextButton(
                     buttonText: AppTexts.editUser,
-                    textStyle: TextStyles.font16WhiteMedium,
                     onPressed: _toggleEdit,
-                    horizontalPadding: 0,
-                    verticalPadding: 16,
+                    buttonHeight: 40.h,
+
+                    textStyle: TextStyles.font18DarkGreyBold.copyWith(
+                      color: Colors.white,
+                    ),
                   ),
                 ] else ...[
                   // Edit Mode
@@ -182,6 +183,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                         AppTextFormField(
                           controller: _nameController,
                           hintText: AppTexts.enterName,
+
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return AppTexts.nameRequired;
@@ -208,11 +210,13 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                         verticalSpace(32),
                         AppTextButton(
                           buttonText: AppTexts.saveChanges,
-                          textStyle: TextStyles.font16WhiteMedium,
+                          buttonHeight: 40.h,
+
+                          textStyle: TextStyles.font18DarkGreyBold.copyWith(
+                            color: Colors.white,
+                          ),
                           onPressed: _onSave,
                           isLoading: state is UserDetailsUpdating,
-                          horizontalPadding: 0,
-                          verticalPadding: 16,
                         ),
                       ],
                     ),
